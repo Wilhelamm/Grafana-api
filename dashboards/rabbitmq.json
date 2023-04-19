@@ -1,0 +1,1075 @@
+{
+    "meta": {
+        "type": "db",
+        "canSave": false,
+        "canEdit": false,
+        "canAdmin": false,
+        "canStar": true,
+        "canDelete": false,
+        "slug": "astarte-monitoring-2",
+        "url": "/d/sCiG5pP4z/astarte-monitoring-2",
+        "expires": "0001-01-01T00:00:00Z",
+        "created": "2023-04-18T16:41:14Z",
+        "updated": "2023-04-18T16:44:05Z",
+        "updatedBy": "bruno.terres@zpesystems.com",
+        "createdBy": "bruno.terres@zpesystems.com",
+        "version": 2,
+        "hasAcl": false,
+        "isFolder": false,
+        "provisioned": false,
+        "provisionedExternalId": "",
+        "annotationsPermissions": {
+            "dashboard": {
+                "canAdd": false,
+                "canEdit": false,
+                "canDelete": false
+            },
+            "organization": {
+                "canAdd": false,
+                "canEdit": false,
+                "canDelete": false
+            }
+        }
+    },
+    "dashboard": {
+        "annotations": {
+            "list": [
+                {
+                    "builtIn": 1,
+                    "datasource": {
+                        "type": "grafana",
+                        "uid": null
+                    },
+                    "enable": true,
+                    "hide": true,
+                    "iconColor": "rgba(0, 211, 255, 1)",
+                    "name": "Annotations & Alerts",
+                    "target": {
+                        "limit": 100,
+                        "matchAny": false,
+                        "tags": [],
+                        "type": "dashboard"
+                    },
+                    "type": "dashboard"
+                }
+            ]
+        },
+        "description": "Monitors Kubernetes cluster using Prometheus. Shows overall cluster CPU / Memory / Filesystem usage as well as individual pod, containers, systemd services statistics. Uses cAdvisor metrics only.",
+        "editable": true,
+        "fiscalYearStartMonth": 0,
+        "gnetId": 315,
+        "graphTooltip": 0,
+        "id": null,
+        "iteration": 1681836222624,
+        "links": [],
+        "liveNow": false,
+        "panels": [
+            {
+                "collapsed": false,
+                "gridPos": {
+                    "h": 1,
+                    "w": 24,
+                    "x": 0,
+                    "y": 0
+                },
+                "id": 74,
+                "panels": [],
+                "title": "VerneMQ",
+                "type": "row"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "${DS_PROMETHEUS}"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "fixedColor": "blue",
+                            "mode": "fixed"
+                        },
+                        "mappings": [],
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "green",
+                                    "value": null
+                                }
+                            ]
+                        }
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 6,
+                    "w": 4,
+                    "x": 0,
+                    "y": 1
+                },
+                "id": 95,
+                "options": {
+                    "colorMode": "none",
+                    "graphMode": "area",
+                    "justifyMode": "center",
+                    "orientation": "auto",
+                    "reduceOptions": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "textMode": "value_and_name"
+                },
+                "pluginVersion": "8.5.13",
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "${DS_PROMETHEUS}"
+                        },
+                        "editorMode": "code",
+                        "expr": "(socket_open - socket_close)",
+                        "legendFormat": "{{instance}}",
+                        "range": true,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Connected Clients",
+                "type": "stat"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "${DS_PROMETHEUS}"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "fixedColor": "semi-dark-blue",
+                            "mode": "fixed"
+                        },
+                        "mappings": [],
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "green",
+                                    "value": null
+                                }
+                            ]
+                        }
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 6,
+                    "w": 4,
+                    "x": 4,
+                    "y": 1
+                },
+                "id": 105,
+                "options": {
+                    "colorMode": "none",
+                    "graphMode": "area",
+                    "justifyMode": "center",
+                    "orientation": "auto",
+                    "reduceOptions": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "textMode": "value_and_name"
+                },
+                "pluginVersion": "8.5.13",
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "${DS_PROMETHEUS}"
+                        },
+                        "editorMode": "code",
+                        "expr": "queue_processes",
+                        "legendFormat": "{{instance}}",
+                        "range": true,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Queue processes",
+                "type": "stat"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "${DS_PROMETHEUS}"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "thresholds"
+                        },
+                        "mappings": [],
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "green",
+                                    "value": null
+                                },
+                                {
+                                    "color": "red",
+                                    "value": 80
+                                }
+                            ]
+                        },
+                        "unit": "ms"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 6,
+                    "w": 4,
+                    "x": 8,
+                    "y": 1
+                },
+                "id": 107,
+                "options": {
+                    "colorMode": "none",
+                    "graphMode": "none",
+                    "justifyMode": "center",
+                    "orientation": "auto",
+                    "reduceOptions": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "textMode": "value_and_name"
+                },
+                "pluginVersion": "8.5.13",
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "${DS_PROMETHEUS}"
+                        },
+                        "editorMode": "code",
+                        "expr": "system_wallclock",
+                        "legendFormat": "{{instance}}",
+                        "range": true,
+                        "refId": "A"
+                    }
+                ],
+                "title": "VerneMQ Node Uptime",
+                "type": "stat"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "${DS_PROMETHEUS}"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "thresholds"
+                        },
+                        "mappings": [],
+                        "max": 100,
+                        "min": 0,
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "green",
+                                    "value": null
+                                },
+                                {
+                                    "color": "red",
+                                    "value": 80
+                                }
+                            ]
+                        },
+                        "unit": "percent"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 6,
+                    "w": 4,
+                    "x": 12,
+                    "y": 1
+                },
+                "id": 101,
+                "options": {
+                    "orientation": "auto",
+                    "reduceOptions": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "showThresholdLabels": false,
+                    "showThresholdMarkers": true,
+                    "text": {}
+                },
+                "pluginVersion": "8.5.13",
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "${DS_PROMETHEUS}"
+                        },
+                        "editorMode": "code",
+                        "expr": "system_utilization",
+                        "legendFormat": "{{instance}}",
+                        "range": true,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Erlang VM Utilization",
+                "type": "gauge"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "${DS_PROMETHEUS}"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "fixedColor": "blue",
+                            "mode": "fixed"
+                        },
+                        "mappings": [],
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "green",
+                                    "value": null
+                                },
+                                {
+                                    "color": "light-orange",
+                                    "value": 10000
+                                },
+                                {
+                                    "color": "semi-dark-red",
+                                    "value": 200000
+                                }
+                            ]
+                        }
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 6,
+                    "w": 4,
+                    "x": 16,
+                    "y": 1
+                },
+                "id": 99,
+                "options": {
+                    "colorMode": "none",
+                    "graphMode": "area",
+                    "justifyMode": "auto",
+                    "orientation": "horizontal",
+                    "reduceOptions": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "textMode": "auto"
+                },
+                "pluginVersion": "8.5.13",
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "${DS_PROMETHEUS}"
+                        },
+                        "expr": "sum(rate(mqtt_publish_received[30s]))",
+                        "refId": "A"
+                    }
+                ],
+                "title": "Current MQTT Receive Rate",
+                "type": "stat"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "${DS_PROMETHEUS}"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "thresholds"
+                        },
+                        "mappings": [],
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "green",
+                                    "value": null
+                                },
+                                {
+                                    "color": "red",
+                                    "value": 80
+                                }
+                            ]
+                        }
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 6,
+                    "w": 4,
+                    "x": 20,
+                    "y": 1
+                },
+                "id": 103,
+                "options": {
+                    "colorMode": "none",
+                    "graphMode": "none",
+                    "justifyMode": "auto",
+                    "orientation": "auto",
+                    "reduceOptions": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "textMode": "auto"
+                },
+                "pluginVersion": "8.5.13",
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "${DS_PROMETHEUS}"
+                        },
+                        "expr": "sum(rate(mqtt_publish_sent[30s]))",
+                        "refId": "A"
+                    }
+                ],
+                "title": "Current MQTT send rate",
+                "type": "stat"
+            },
+            {
+                "aliasColors": {},
+                "bars": false,
+                "dashLength": 10,
+                "dashes": false,
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "${DS_PROMETHEUS}"
+                },
+                "fill": 1,
+                "fillGradient": 0,
+                "gridPos": {
+                    "h": 6,
+                    "w": 24,
+                    "x": 0,
+                    "y": 7
+                },
+                "hiddenSeries": false,
+                "id": 109,
+                "legend": {
+                    "avg": false,
+                    "current": false,
+                    "max": false,
+                    "min": false,
+                    "show": true,
+                    "total": false,
+                    "values": false
+                },
+                "lines": true,
+                "linewidth": 1,
+                "nullPointMode": "null",
+                "options": {
+                    "alertThreshold": true
+                },
+                "percentage": false,
+                "pluginVersion": "8.5.13",
+                "pointradius": 2,
+                "points": false,
+                "renderer": "flot",
+                "seriesOverrides": [],
+                "spaceLength": 10,
+                "stack": false,
+                "steppedLine": false,
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "${DS_PROMETHEUS}"
+                        },
+                        "editorMode": "code",
+                        "expr": "rate(socket_open[30s])",
+                        "legendFormat": "Connect (Socket Open) - Instance: {{instance}} Pod: {{pod}}",
+                        "range": true,
+                        "refId": "A"
+                    },
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "${DS_PROMETHEUS}"
+                        },
+                        "editorMode": "code",
+                        "expr": "rate(socket_close[30s])",
+                        "hide": false,
+                        "legendFormat": "Disconnect (Socket Closed) - Instance: {{instance}} Pod: {{pod}}",
+                        "range": true,
+                        "refId": "B"
+                    }
+                ],
+                "thresholds": [],
+                "timeRegions": [],
+                "title": "Connect/Disconnect Rate (per second)",
+                "tooltip": {
+                    "shared": true,
+                    "sort": 0,
+                    "value_type": "individual"
+                },
+                "type": "graph",
+                "xaxis": {
+                    "mode": "time",
+                    "show": true,
+                    "values": []
+                },
+                "yaxes": [
+                    {
+                        "$$hashKey": "object:93",
+                        "format": "ops",
+                        "logBase": 1,
+                        "show": true
+                    },
+                    {
+                        "$$hashKey": "object:94",
+                        "format": "short",
+                        "logBase": 1,
+                        "show": true
+                    }
+                ],
+                "yaxis": {
+                    "align": false
+                }
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "${DS_PROMETHEUS}"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "custom": {
+                            "axisLabel": "",
+                            "axisPlacement": "auto",
+                            "barAlignment": 0,
+                            "drawStyle": "line",
+                            "fillOpacity": 0,
+                            "gradientMode": "none",
+                            "hideFrom": {
+                                "legend": false,
+                                "tooltip": false,
+                                "viz": false
+                            },
+                            "lineInterpolation": "linear",
+                            "lineWidth": 1,
+                            "pointSize": 5,
+                            "scaleDistribution": {
+                                "type": "linear"
+                            },
+                            "showPoints": "auto",
+                            "spanNulls": false,
+                            "stacking": {
+                                "group": "A",
+                                "mode": "none"
+                            },
+                            "thresholdsStyle": {
+                                "mode": "off"
+                            }
+                        },
+                        "mappings": [],
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "green",
+                                    "value": null
+                                },
+                                {
+                                    "color": "red",
+                                    "value": 80
+                                }
+                            ]
+                        }
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 0,
+                    "y": 13
+                },
+                "id": 97,
+                "options": {
+                    "legend": {
+                        "calcs": [],
+                        "displayMode": "list",
+                        "placement": "bottom"
+                    },
+                    "tooltip": {
+                        "mode": "single",
+                        "sort": "none"
+                    }
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "${DS_PROMETHEUS}"
+                        },
+                        "editorMode": "code",
+                        "expr": "queue_processes{job=\"astarte/astarte-vernemq\"}",
+                        "legendFormat": "Instance: {{instance}} Pod: {{pod}}",
+                        "range": true,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Current Queue Total",
+                "type": "timeseries"
+            },
+            {
+                "aliasColors": {},
+                "bars": false,
+                "dashLength": 10,
+                "dashes": false,
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "${DS_PROMETHEUS}"
+                },
+                "fill": 1,
+                "fillGradient": 0,
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 12,
+                    "y": 13
+                },
+                "hiddenSeries": false,
+                "id": 111,
+                "legend": {
+                    "avg": false,
+                    "current": false,
+                    "max": false,
+                    "min": false,
+                    "show": true,
+                    "total": false,
+                    "values": false
+                },
+                "lines": true,
+                "linewidth": 1,
+                "nullPointMode": "null",
+                "options": {
+                    "alertThreshold": true
+                },
+                "percentage": false,
+                "pluginVersion": "8.5.13",
+                "pointradius": 2,
+                "points": false,
+                "renderer": "flot",
+                "seriesOverrides": [],
+                "spaceLength": 10,
+                "stack": false,
+                "steppedLine": false,
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "${DS_PROMETHEUS}"
+                        },
+                        "editorMode": "code",
+                        "expr": "rate(queue_setup[60s])",
+                        "legendFormat": "Queue Setup - Instance: {{instance}} Pod: {{pod}}",
+                        "range": true,
+                        "refId": "A"
+                    },
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "${DS_PROMETHEUS}"
+                        },
+                        "editorMode": "code",
+                        "expr": "rate(queue_teardown[60s])",
+                        "hide": false,
+                        "legendFormat": "Queue Teardown - Instance: {{instance}} Pod: {{pod}}",
+                        "range": true,
+                        "refId": "B"
+                    }
+                ],
+                "thresholds": [],
+                "timeRegions": [],
+                "title": "Queue Setup and Teardown Rate (per second)",
+                "tooltip": {
+                    "shared": true,
+                    "sort": 0,
+                    "value_type": "individual"
+                },
+                "type": "graph",
+                "xaxis": {
+                    "mode": "time",
+                    "show": true,
+                    "values": []
+                },
+                "yaxes": [
+                    {
+                        "$$hashKey": "object:126",
+                        "format": "short",
+                        "logBase": 1,
+                        "show": true
+                    },
+                    {
+                        "$$hashKey": "object:127",
+                        "format": "short",
+                        "logBase": 1,
+                        "show": true
+                    }
+                ],
+                "yaxis": {
+                    "align": false
+                }
+            },
+            {
+                "aliasColors": {},
+                "bars": true,
+                "dashLength": 10,
+                "dashes": false,
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "${DS_PROMETHEUS}"
+                },
+                "fill": 1,
+                "fillGradient": 0,
+                "gridPos": {
+                    "h": 7,
+                    "w": 24,
+                    "x": 0,
+                    "y": 21
+                },
+                "hiddenSeries": false,
+                "id": 113,
+                "legend": {
+                    "avg": false,
+                    "current": false,
+                    "max": false,
+                    "min": false,
+                    "show": true,
+                    "total": false,
+                    "values": false
+                },
+                "lines": false,
+                "linewidth": 1,
+                "nullPointMode": "null",
+                "options": {
+                    "alertThreshold": true
+                },
+                "percentage": false,
+                "pluginVersion": "8.5.13",
+                "pointradius": 2,
+                "points": false,
+                "renderer": "flot",
+                "seriesOverrides": [],
+                "spaceLength": 10,
+                "stack": false,
+                "steppedLine": false,
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "${DS_PROMETHEUS}"
+                        },
+                        "editorMode": "code",
+                        "expr": "rate(queue_message_in[1m])",
+                        "legendFormat": "In - Instance: {{instance}} Pod: {{pod}}",
+                        "range": true,
+                        "refId": "A"
+                    },
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "${DS_PROMETHEUS}"
+                        },
+                        "editorMode": "code",
+                        "expr": "rate(queue_message_out[1m])",
+                        "hide": false,
+                        "legendFormat": "Out - Instance: {{instance}} Pod: {{pod}}",
+                        "range": true,
+                        "refId": "B"
+                    },
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "${DS_PROMETHEUS}"
+                        },
+                        "editorMode": "code",
+                        "expr": "rate(queue_message_drop[1m])",
+                        "hide": false,
+                        "legendFormat": "Drop - Instance: {{instance}} Pod: {{pod}}",
+                        "range": true,
+                        "refId": "C"
+                    },
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "${DS_PROMETHEUS}"
+                        },
+                        "editorMode": "code",
+                        "expr": "rate(queue_message_unhandled[1m])",
+                        "hide": false,
+                        "legendFormat": "Unhandled - Instance: {{instance}} Pod: {{pod}}",
+                        "range": true,
+                        "refId": "D"
+                    }
+                ],
+                "thresholds": [],
+                "timeRegions": [],
+                "title": "Messages in Queues",
+                "tooltip": {
+                    "shared": true,
+                    "sort": 0,
+                    "value_type": "individual"
+                },
+                "type": "graph",
+                "xaxis": {
+                    "mode": "time",
+                    "show": true,
+                    "values": []
+                },
+                "yaxes": [
+                    {
+                        "$$hashKey": "object:159",
+                        "format": "short",
+                        "logBase": 1,
+                        "show": true
+                    },
+                    {
+                        "$$hashKey": "object:160",
+                        "format": "short",
+                        "logBase": 1,
+                        "show": true
+                    }
+                ],
+                "yaxis": {
+                    "align": false
+                }
+            }
+        ],
+        "refresh": false,
+        "schemaVersion": 36,
+        "style": "dark",
+        "tags": [],
+        "templating": {
+            "list": [
+                {
+                    "allValue": ".*",
+                    "current": {
+                        "selected": false,
+                        "text": "gke-gke-production-izee5s-mix-kpzwj2y-f1f988d9-g7zd",
+                        "value": "gke-gke-production-izee5s-mix-kpzwj2y-f1f988d9-g7zd"
+                    },
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "P8DF1966FAE26F061"
+                    },
+                    "definition": "",
+                    "hide": 0,
+                    "includeAll": true,
+                    "multi": false,
+                    "name": "Node",
+                    "options": [],
+                    "query": {
+                        "query": "label_values(kubernetes_io_hostname)",
+                        "refId": "vm-prod-us-Node-Variable-Query"
+                    },
+                    "refresh": 1,
+                    "regex": ".*mix.*",
+                    "skipUrlSync": false,
+                    "sort": 0,
+                    "type": "query"
+                },
+                {
+                    "current": {
+                        "selected": false,
+                        "text": "vm-prod-us",
+                        "value": "vm-prod-us"
+                    },
+                    "hide": 0,
+                    "includeAll": false,
+                    "label": "Datasource",
+                    "multi": false,
+                    "name": "DS_PROMETHEUS",
+                    "options": [],
+                    "query": "prometheus",
+                    "queryValue": "",
+                    "refresh": 1,
+                    "regex": "vm-.*",
+                    "skipUrlSync": false,
+                    "type": "datasource"
+                },
+                {
+                    "current": {
+                        "selected": false,
+                        "text": "astarte-rabbitmq-0",
+                        "value": "astarte-rabbitmq-0"
+                    },
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "${DS_PROMETHEUS}"
+                    },
+                    "definition": "label_values(kube_pod_info, pod)",
+                    "hide": 0,
+                    "includeAll": false,
+                    "multi": false,
+                    "name": "Pod",
+                    "options": [],
+                    "query": {
+                        "query": "label_values(kube_pod_info, pod)",
+                        "refId": "StandardVariableQuery"
+                    },
+                    "refresh": 1,
+                    "regex": "astarte.*",
+                    "skipUrlSync": false,
+                    "sort": 0,
+                    "type": "query"
+                },
+                {
+                    "current": {
+                        "selected": false,
+                        "text": "api.astarte.zpecloud.com",
+                        "value": "api.astarte.zpecloud.com"
+                    },
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "${DS_PROMETHEUS}"
+                    },
+                    "definition": "label_values(host)",
+                    "hide": 0,
+                    "includeAll": false,
+                    "multi": false,
+                    "name": "Host",
+                    "options": [],
+                    "query": {
+                        "query": "label_values(host)",
+                        "refId": "StandardVariableQuery"
+                    },
+                    "refresh": 1,
+                    "regex": "api.astarte.*",
+                    "skipUrlSync": false,
+                    "sort": 0,
+                    "type": "query"
+                },
+                {
+                    "current": {
+                        "selected": false,
+                        "text": "production-us",
+                        "value": "production-us"
+                    },
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "${DS_PROMETHEUS}"
+                    },
+                    "definition": "label_values(rabbitmq_identity_info{},cluster)",
+                    "hide": 0,
+                    "includeAll": false,
+                    "label": "Rabbitmq_cluster",
+                    "multi": false,
+                    "name": "rabbitmq_cluster",
+                    "options": [],
+                    "query": {
+                        "query": "label_values(rabbitmq_identity_info{},cluster)",
+                        "refId": "StandardVariableQuery"
+                    },
+                    "refresh": 1,
+                    "regex": "",
+                    "skipUrlSync": false,
+                    "sort": 1,
+                    "type": "query"
+                },
+                {
+                    "current": {
+                        "selected": false,
+                        "text": "rabbitmq",
+                        "value": "rabbitmq"
+                    },
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "${DS_PROMETHEUS}"
+                    },
+                    "definition": "label_values(rabbitmq_identity_info{},job)",
+                    "hide": 0,
+                    "includeAll": false,
+                    "label": "Rabbitmq_job",
+                    "multi": false,
+                    "name": "rabbitmq_job",
+                    "options": [],
+                    "query": {
+                        "query": "label_values(rabbitmq_identity_info{},job)",
+                        "refId": "StandardVariableQuery"
+                    },
+                    "refresh": 1,
+                    "regex": "",
+                    "skipUrlSync": false,
+                    "sort": 1,
+                    "type": "query"
+                }
+            ]
+        },
+        "time": {
+            "from": "now-12h",
+            "to": "now"
+        },
+        "timepicker": {
+            "refresh_intervals": [
+                "5s",
+                "10s",
+                "30s",
+                "1m",
+                "5m",
+                "15m",
+                "30m",
+                "1h",
+                "2h",
+                "1d"
+            ],
+            "time_options": [
+                "5m",
+                "15m",
+                "1h",
+                "6h",
+                "12h",
+                "24h",
+                "2d",
+                "7d",
+                "30d"
+            ]
+        },
+        "timezone": "browser",
+        "title": "Astarte Monitoring 2",
+        "uid": "sCiG5pP4z",
+        "version": 2,
+        "weekStart": ""
+    }
+}
