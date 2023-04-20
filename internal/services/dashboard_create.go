@@ -5,13 +5,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"golang-grafana-api/internal/models"
-	"io/ioutil"
 	"net/http"
+	"os"
 )
 
 func CreateDashboard(apiKey, apiUrl, jsonFile string) (*models.DashboardResponse, error) {
 	// Read the JSON file containing the dashboard template
-	template, err := ioutil.ReadFile(jsonFile)
+	template, err := os.ReadFile(jsonFile)
 	if err != nil {
 		return nil, err
 	}

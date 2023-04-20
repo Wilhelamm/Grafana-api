@@ -8,15 +8,15 @@ import (
 	"net/http"
 )
 
-func ListDashboards(apiKey, apiUrl string) ([]models.Dashboard, error) {
+func GetDashboardInfo(apiKey, apiUrl, dashboardUID string) (*models.Dashboard, error) {
 	client := http.Client{}
-	url := fmt.Sprintf("%s/api/search?type=dash-db", apiUrl)
+
+	url := fmt.Sprintf("%s/api/dashboards/uid/%s", apiUrl, dashboardUID)
 
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error creating request: %s", err)
 	}
-
 	req.Header.Set("Authorization", "Bearer "+apiKey)
 
 	resp, err := client.Do(req)
@@ -30,11 +30,11 @@ func ListDashboards(apiKey, apiUrl string) ([]models.Dashboard, error) {
 		return nil, fmt.Errorf("error reading response: %s", err)
 	}
 
-	var dashboards []models.Dashboard
-	err = json.Unmarshal(body, &dashboards)
+	var dashboard models.Dashboard
+	err = json.Unmarshal(body, &dashboard)
 	if err != nil {
 		return nil, fmt.Errorf("error parsing response: %s", err)
 	}
 
-	return dashboards, nil
+	return &dashboard, nil
 }

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"golang-grafana-api/internal/services"
 )
@@ -10,15 +11,17 @@ func main() {
 	apiUrl := "http://localhost:3000"
 	//jsonFile := "rabbitmq.json"
 
-	dashboards, err := services.ListDashboards(apiKey, apiUrl)
+	dashboard, err := services.GetDashboardInfo(apiKey, apiUrl, "8BoGBoEVz")
 	if err != nil {
 		fmt.Println("Error getting dashboards:", err)
 		return
 	}
 
 	// Use the dashboards slice as needed
-	fmt.Println("Dashboards:")
-	for _, dashboard := range dashboards {
-		fmt.Printf("ID: %d,ID: %s, Title: %s\n", dashboard.ID, dashboard.UID, dashboard.Title)
-	}
+	//fmt.Println("Dashboards:")
+	//for _, dashboard := range dashboards {
+	//	fmt.Printf("ID: %d,ID: %s, Title: %s\n", dashboard.ID, dashboard.UID, dashboard.Title)
+	//}
+	fmt.Println(json.MarshalIndent(dashboard, "", "    "))
+
 }
