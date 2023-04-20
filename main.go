@@ -9,7 +9,7 @@ import (
 func main() {
 	apiKey := "eyJrIjoiZlVRNVRlVUFmbFFrNlRmak12UTQ5QjVBWWFJS1NmQkkiLCJuIjoiYXBpdC1lc3QiLCJpZCI6MX0="
 	apiUrl := "http://localhost:3000"
-	//jsonFile := "rabbitmq.json"
+	//jsonFile := "astarte-dashboard.json"
 
 	dashboard, err := services.GetDashboardInfo(apiKey, apiUrl, "8BoGBoEVz")
 	if err != nil {
