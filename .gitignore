@@ -15,4 +15,7 @@
 # vendor/
 #
 grafana-api-key
-*.
+.*
+.idea/.gitignore
+.idea/golang-grafana-api.iml
+.idea/vcs.xml
