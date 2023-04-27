@@ -2,11 +2,9 @@ package main
 
 import (
 	"fmt"
-	"os"
-
-
 	"github.com/spf13/cobra"
 	"golang-grafana-api/internal/services"
+	"os"
 )
 
 var rootCmd = &cobra.Command{Use: "app"}
@@ -17,15 +15,17 @@ func init() {
 		Short: "Creates dashboard from Json",
 		Long:  ``,
 		Run: func(cmd *cobra.Command, args []string) {
-			apiKey := "eyJrIjoiZlVRNVRlVUFmbFFrNlRmak12UTQ5QjVBWWFJS1NmQkkiLCJuIjoiYXBpdC1lc3QiLCJpZCI6MX0="
-			apiUrl := "http://localhost:3000"
-			resp, err := services.CreateDashboard(apiKey, apiUrl, "/home/terres/go/src/golang-grafana-api/assets/dashboards/astarte-app-engine.json")
-
+			apiKey := "eyJrIjoiMTN6YlVFdUJ3UkZEbjdQYkRGUERIYlcyQTBOaXVyMjQiLCJuIjoiVGVzdCIsImlkIjoxfQ=="
+			apiUrl := "https://monitoring.airgap.zpecloud.local"
+			response, err := services.CreateDashboard(apiKey, apiUrl, "assets/dashboards/astarte-app-engine.json")
 			if err != nil {
 				fmt.Println("Error getting dashboards:", err)
 				return
 			}
-			fmt.Println(resp)
+			fmt.Println("Dashboard created with success")
+			fmt.Println("Dashboard ID:", response.ID)
+			fmt.Println("Dashboard UID:", response.UID)
+			fmt.Println("Dashboard URL:", apiUrl+response.URL)
 		},
 	}
 
@@ -34,15 +34,19 @@ func init() {
 		Short: "Lists deployed dashboards",
 		Long:  ``,
 		Run: func(cmd *cobra.Command, args []string) {
-			apiKey := "eyJrIjoiZlVRNVRlVUFmbFFrNlRmak12UTQ5QjVBWWFJS1NmQkkiLCJuIjoiYXBpdC1lc3QiLCJpZCI6MX0="
-			apiUrl := "http://localhost:3000"
-			resp, err := services.ListDashboards(apiKey, apiUrl)
-
+			apiKey := "eyJrIjoiMTN6YlVFdUJ3UkZEbjdQYkRGUERIYlcyQTBOaXVyMjQiLCJuIjoiVGVzdCIsImlkIjoxfQ=="
+			apiUrl := "https://monitoring.airgap.zpecloud.local"
+			response, err := services.ListDashboards(apiKey, apiUrl)
 			if err != nil {
 				fmt.Println("Error getting dashboards:", err)
 				return
 			}
-			fmt.Println(resp)
+			for _, dashboard := range response {
+				fmt.Println("Dashboard Title:", dashboard.Title)
+				fmt.Println("Dashboard ID:", dashboard.ID)
+				fmt.Println("Dashboard UID:", dashboard.UID)
+				fmt.Println("Dashboard URL:", apiUrl+dashboard.URL+"\n")
+			}
 		},
 	}
 
@@ -51,17 +55,20 @@ func init() {
 		Short: "Lists deployed dashboards",
 		Long:  ``,
 		Run: func(cmd *cobra.Command, args []string) {
-			apiKey := "eyJrIjoiZlVRNVRlVUFmbFFrNlRmak12UTQ5QjVBWWFJS1NmQkkiLCJuIjoiYXBpdC1lc3QiLCJpZCI6MX0="
-			apiUrl := "http://localhost:3000"
-			// argValue := args[0]
-            flagValue, _ := cmd.Flags().GetString("uid")
-			dashboard, err := services.GetDashboardInfo(apiKey, apiUrl, flagValue)
+			apiKey := "eyJrIjoiMTN6YlVFdUJ3UkZEbjdQYkRGUERIYlcyQTBOaXVyMjQiLCJuIjoiVGVzdCIsImlkIjoxfQ=="
+			apiUrl := "https://monitoring.airgap.zpecloud.local"
+			flagValue, _ := cmd.Flags().GetString("uid")
+			response, err := services.GetDashboardInfo(apiKey, apiUrl, flagValue)
 			if err != nil {
 				fmt.Println("Error getting dashboards:", err)
 				return
 			}
-			fmt.Println("flag", flagValue)
-			fmt.Println("Dashboard ID:", dashboard)
+			fmt.Println("Dashboard ID:", response.Dashboard.ID)
+			fmt.Println("Dashboard UID:", response.Dashboard.UID)
+			fmt.Println("Dashboard Version:", response.Dashboard.Version)
+			fmt.Println("Dashboard Title:", response.Dashboard.Title)
+			fmt.Println("Dashboard Description:", response.Dashboard.Description)
+			fmt.Println("Dashboard URL:", apiUrl+response.Dashboard.URL)
 		},
 	}
 
@@ -70,16 +77,14 @@ func init() {
 		Short: "Lists deployed dashboards",
 		Long:  ``,
 		Run: func(cmd *cobra.Command, args []string) {
-			apiKey := "eyJrIjoiZlVRNVRlVUFmbFFrNlRmak12UTQ5QjVBWWFJS1NmQkkiLCJuIjoiYXBpdC1lc3QiLCJpZCI6MX0="
-			apiUrl := "http://localhost:3000"
-			// argValue := args[0]
-            flagValue, _ := cmd.Flags().GetString("uid")
+			apiKey := "eyJrIjoiMTN6YlVFdUJ3UkZEbjdQYkRGUERIYlcyQTBOaXVyMjQiLCJuIjoiVGVzdCIsImlkIjoxfQ=="
+			apiUrl := "https://monitoring.airgap.zpecloud.local"
+			flagValue, _ := cmd.Flags().GetString("uid")
 			err := services.DeleteDashboardByUID(apiKey, apiUrl, flagValue)
 			if err != nil {
 				fmt.Println("Error getting dashboards:", err)
 				return
 			}
-			fmt.Println("flag", flagValue)
 		},
 	}
 
