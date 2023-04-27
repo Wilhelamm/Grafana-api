@@ -4,9 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"golang-grafana-api/internal/models"
 	"net/http"
 	"os"
+	"io"
+
+	"golang-grafana-api/internal/models"
 )
 
 func CreateDashboard(apiKey, apiUrl, jsonFile string) (*models.DashboardResponse, error) {
@@ -73,10 +75,10 @@ func ListDashboards(apiKey, apiUrl string) ([]models.Dashboard, error) {
 }
 
 
-func GetDashboardInfo(apiKey, apiUrl, dashboardUID string) (*models.Dashboard, error) {
+func GetDashboardInfo(apiKey, apiUrl, uid string) (*models.Dashboard, error) {
 	client := http.Client{}
 
-	url := fmt.Sprintf("%s/api/dashboards/uid/%s", apiUrl, dashboardUID)
+	url := fmt.Sprintf("%s/api/dashboards/uid/%s", apiUrl, uid)
 
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
@@ -102,4 +104,32 @@ func GetDashboardInfo(apiKey, apiUrl, dashboardUID string) (*models.Dashboard, e
 	}
 
 	return &dashboard, nil
+}
+
+
+func DeleteDashboardByUID(apiKey, apiUrl, uid string) error {
+	client := &http.Client{}
+
+	url := fmt.Sprintf("%s/api/dashboards/uid/%s", apiUrl, uid)
+
+	req, err := http.NewRequest("DELETE", url, nil)
+	if err != nil {
+		return err
+	}
+	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", apiKey))
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	// Check response status code
+	if resp.StatusCode == http.StatusOK {
+		fmt.Printf("Dashboard with UID '%s' deleted successfully\n", uid)
+	} else {
+		return fmt.Errorf("Failed to delete dashboard with UID '%s'. Response status code: %d\n", uid, resp.StatusCode)
+	}
+
+	return nil
 }
