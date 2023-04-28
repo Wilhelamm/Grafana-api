@@ -23,6 +23,6 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.PersistentFlags().String("api-token", "eyJrIjoibUpUaEIyM1ZGZzFBZ1dSVGNNVWYySGxGelpIbUI2YnEiLCJuIjoidGVzdC1icnVubyIsImlkIjoxfQ==", "Grafana API token")
+	rootCmd.PersistentFlags().String("api-token", "eyJrIjoiODA3anM3eTJhRUdKN2c4NnkzcXMzcUMzQlp6Yjl5OTMiLCJuIjoidGVzdC1icnVubyIsImlkIjoxfQ==", "Grafana API token")
 	rootCmd.PersistentFlags().String("grafana-url", "https://monitoring.airgap.zpecloud.local", "Grafana URL")
 }
