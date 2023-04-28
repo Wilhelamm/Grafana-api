@@ -15,15 +15,18 @@ var createDashboard = &cobra.Command{
 		apiKey, _ := cmd.Flags().GetString("api-token")
 		apiUrl, _ := cmd.Flags().GetString("grafana-url")
 
-		resp, err := services.CreateDashboard(apiKey, apiUrl, "/home/terres/go/src/golang-grafana-api/assets/dashboards/astarte-app-engine.json")
+		response, err := services.CreateDashboard(apiKey, apiUrl, "assets/dashboards/astarte-app-engine.json")
 		if err != nil {
 			return fmt.Errorf("Error getting dashboards: %s", err)
 		}
-		fmt.Println(resp)
+		fmt.Println("Dashboard created with success")
+		fmt.Println("Dashboard ID:", response.ID)
+		fmt.Println("Dashboard UID:", response.UID)
+		fmt.Println("Dashboard URL:", apiUrl+response.URL)
 		return nil 
 	},
 }
 
 func init() {
-	monitoringCmd.AddCommand(createDashboard)
+	monitoringCmd.AddCommand(listDashboards)
 }

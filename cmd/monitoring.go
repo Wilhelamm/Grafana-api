@@ -11,7 +11,7 @@ var monitoringCmd = &cobra.Command{
 	Short: "The monitoring command contains subcommands such as create, list, get and delete",
 	Long: "",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("monitoring called")
+		fmt.Println("monitoring-cli")
 	},
 }
 

@@ -9,7 +9,7 @@ import (
 var AppVersion string
 
 var rootCmd = &cobra.Command{
-	Use: "monitoring-cli",
+	Use: "monitoring",
 	Short: "A simple CLI to manage certain aspects of the Grafana API",
 	Long: "A CLI to create, list, get and delete Grafana Dashboards via API",
 	Version: AppVersion,
