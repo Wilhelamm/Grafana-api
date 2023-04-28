@@ -3,8 +3,8 @@ package cmd
 import (
 	"fmt"
 
-	"golang-grafana-api/internal/services"
 	"github.com/spf13/cobra"
+	"golang-grafana-api/internal/services"
 )
 
 var getDashboard = &cobra.Command{
@@ -14,7 +14,7 @@ var getDashboard = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiKey, _ := cmd.Flags().GetString("api-token")
 		apiUrl, _ := cmd.Flags().GetString("grafana-url")
-	    flagValue, _ := cmd.Flags().GetString("uid")
+		flagValue, _ := cmd.Flags().GetString("uid")
 		response, err := services.GetDashboardInfo(apiKey, apiUrl, flagValue)
 		if err != nil {
 			return fmt.Errorf("Error getting dashboards: %s", err)
@@ -24,8 +24,8 @@ var getDashboard = &cobra.Command{
 		fmt.Println("Dashboard Version:", response.Dashboard.Version)
 		fmt.Println("Dashboard Title:", response.Dashboard.Title)
 		fmt.Println("Dashboard Description:", response.Dashboard.Description)
-		fmt.Println("Dashboard URL:", apiUrl+response.Dashboard.URL)
-		return nil 
+		fmt.Println("Dashboard URL:", apiUrl+response.Meta.URL)
+		return nil
 	},
 }
 
