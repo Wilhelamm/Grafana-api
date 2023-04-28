@@ -16,6 +16,7 @@ var monitoringCmd = &cobra.Command{
 }
 
 func init() {
+	monitoringCmd.PersistentFlags().String("dash-name", "", "A flag to select the dashboard ")
 	monitoringCmd.PersistentFlags().String("uid", "", "A flag for the command")
 	rootCmd.AddCommand(monitoringCmd)
 }
